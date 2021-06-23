@@ -1,0 +1,56 @@
+﻿@model GeoBackCoordinates.Models.Require
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-antiforgery="true" asp-action="Index" asp-controller="Home" method="post">
+    <div>
+        <div>
+            <label asp-for="address">Адрес</label><br />
+            <input type="text" asp-for="address" />
+            <span asp-validation-for="address"></span>
+        </div>
+        <div>
+            <label asp-for="frequency">Частота</label><br />
+            <input type="number" asp-for="frequency" />
+            <span asp-validation-for="frequency"></span>
+        </div>
+        <div>
+            <label asp-for="file">Имя файла</label><br />
+            <input type="text" asp-for="file" />
+            <span asp-validation-for="file"></span>
+        </div>
+        <div>
+            <input type="submit" value="Найти" />
+        </div>
+    </div>
+</form>
+
+@if (ViewBag.IsQuery)
+{
+    if (ViewBag.ClearList == null)
+    {
+        <h1 Ничего не найдено />
+    }
+    else
+    {
+        foreach (var elem in ViewBag.ClearList)
+        {
+            <table>
+                <tr>
+                    <th>Широта</th>
+                    <th>Долгота</th>
+                </tr>
+
+            @foreach (var subElem in elem)
+            {
+                <tr>
+                    <td>@subElem[0]</td>
+                    <td>@subElem[1]</td>
+                </tr>
+            }
+            
+            </table>
+        }
+    }
+}
